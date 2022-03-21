@@ -22,8 +22,6 @@ export const NotesProvider = ({ children }: any) => {
 		stateUserNotesProps[]
 	>([])
 
-	console.log(stateUsersNotes)
-
 	const [themeGlobal, setThemeGlobal] = useState<themeGlobalProps>(themeLight)
 
 	const handleStateUsersNotes = (userNotes: stateUserNotesProps[]) => {

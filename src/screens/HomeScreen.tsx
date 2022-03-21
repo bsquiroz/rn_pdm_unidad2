@@ -47,6 +47,9 @@ export const HomeScreen = ({ navigation }: Props) => {
 	}
 
 	const handleSaveInfo = () => {
+		const regExpName = new RegExp('^[A-Z]+$', 'i')
+		const regExpNum = new RegExp(/^[0-9]*(.?)[0-9]+$/)
+
 		if (name.trim() === '' || note.trim() === '') {
 			return AlertComponent(
 				'Error',
@@ -54,15 +57,26 @@ export const HomeScreen = ({ navigation }: Props) => {
 			)
 		}
 
-		if (parseInt(note) > 5) {
+		if (parseInt(note) > 5 || parseInt(note) < 0) {
 			return AlertComponent('Error', 'Solo Valores entre 0 y 5')
+		}
+
+		if (!regExpName.test(name)) {
+			return AlertComponent('Error', 'No Ingresa numeros en el nombre')
+		}
+
+		if (!regExpNum.test(note)) {
+			return AlertComponent(
+				'Error',
+				'Ingresa valores numericos en la nota'
+			)
 		}
 
 		if (arrayUsersNotes.length < numberOfRecords) {
 			setArrayUsersNotes([...arrayUsersNotes, userNote])
 			AlertComponent(
-				'Los datos se han guardado correctamente',
-				'Guardado'
+				'Guardado',
+				'Los datos se han guardado correctamente'
 			)
 			setUserNote(initialState)
 		}
